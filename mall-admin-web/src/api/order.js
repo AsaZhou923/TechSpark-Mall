@@ -61,3 +61,17 @@ export function updateOrderNote(params) {
     params:params
   })
 }
+
+export function getOrderCount() {
+  return request({
+    url: '/order/count',
+    method: 'get'
+  })
+}
+
+export function fetchSalesAmount() {
+  return request({
+    url: '/order/salesAmount',  
+    method: 'get'
+  })
+}

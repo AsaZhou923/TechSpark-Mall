@@ -264,12 +264,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/sms/hot/index'),
         meta: {title: '人气推荐', icon: 'sms-hot'}
       },
-      {
-        path: 'subject',
-        name: 'homeSubject',
-        component: () => import('@/views/sms/subject/index'),
-        meta: {title: '专题推荐', icon: 'sms-subject'}
-      },
+      // {
+      //   path: 'subject',
+      //   name: 'homeSubject',
+      //   component: () => import('@/views/sms/subject/index'),
+      //   meta: {title: '专题推荐', icon: 'sms-subject'}
+      // },
       // {
       //   path: 'advertise',
       //   name: 'homeAdvertise',
@@ -345,12 +345,12 @@ export const asyncRouterMap = [
         meta: {title: '修改菜单'},
         hidden: true
       },
-      {
-        path: 'resource',
-        name: 'resource',
-        component: () => import('@/views/ums/resource/index'),
-        meta: {title: '资源列表', icon: 'ums-resource'}
-      },
+      // {
+      //   path: 'resource',
+      //   name: 'resource',
+      //   component: () => import('@/views/ums/resource/index'),
+      //   meta: {title: '资源列表', icon: 'ums-resource'}
+      // },
       {
         path: 'resourceCategory',
         name: 'resourceCategory',

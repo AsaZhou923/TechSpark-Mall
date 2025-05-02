@@ -163,7 +163,7 @@
 		data() {
 			return {
 				titleNViewBackground: '',
-				titleNViewBackgroundList: ['rgb(203, 87, 60)', 'rgb(205, 215, 218)'],
+				titleNViewBackgroundList: ['rgb(60, 126, 255)', 'rgb(205, 215, 218)'],
 				swiperCurrent: 0,
 				swiperLength: 0,
 				carouselList: [],
@@ -338,8 +338,6 @@
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if (index === 0) {
-				this.$api.msg('点击了扫描');
-			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				const pages = getCurrentPages();
 				const page = pages[pages.length - 1];

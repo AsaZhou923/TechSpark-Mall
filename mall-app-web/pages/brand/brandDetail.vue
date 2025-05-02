@@ -246,6 +246,10 @@
 		padding: 30upx 50upx;
 		background: #fff;
 		margin-top: 16upx;
+		border-radius: 12upx;
+		box-shadow: $box-shadow;
+		margin: 20upx;
+		
 		.image-wrapper {
 			width: 210upx;
 			height: 70upx;
@@ -278,7 +282,7 @@
 			color: $font-color-base;
 			margin: 0 10upx 0 30upx;
 			&.active {
-				color: #ff4443;
+				color: #3c7eff;
 			}
 		}
 	}

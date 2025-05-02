@@ -134,6 +134,11 @@
 			flex-direction: column;
 			width: 48%;
 			padding-bottom: 40upx;
+			margin-top: 20upx;
+			background: #fff;
+			border-radius: 12upx;
+			box-shadow: 0 2upx 12upx rgba(0,0,0,0.05);
+			overflow: hidden;
 
 			&:nth-child(2n+1) {
 				margin-right: 4%;
@@ -143,7 +148,7 @@
 		.image-wrapper {
 			width: 100%;
 			height: 330upx;
-			border-radius: 3px;
+			border-radius: 12upx 12upx 0 0;
 			overflow: hidden;
 			background-color: #fff;
 
@@ -151,6 +156,11 @@
 				width: 100%;
 				height: 100%;
 				opacity: 1;
+				transition: transform 0.3s;
+				
+				&:hover {
+					transform: scale(1.05);
+				}
 			}
 		}
 
@@ -158,6 +168,7 @@
 			font-size: $font-lg;
 			color: $font-color-dark;
 			line-height: 80upx;
+			padding: 0 10upx;
 		}
 
 		.title2 {
@@ -168,13 +179,14 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			display: block;
+			padding: 0 10upx;
 		}
 
 		.price-box {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			padding-right: 10upx;
+			padding: 0 10upx;
 			font-size: 24upx;
 			color: $font-color-light;
 		}

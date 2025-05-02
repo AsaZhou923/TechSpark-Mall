@@ -10,13 +10,14 @@
         <module name="mall-security" />
         <module name="mall-admin" />
         <module name="mall-search" />
-        <module name="mall-demo" />
         <module name="mall-mbg" />
         <module name="mall-common" />
         <module name="mall-portal" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="18" />
+    <bytecodeTargetLevel target="18">
+      <module name="mall-demo" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

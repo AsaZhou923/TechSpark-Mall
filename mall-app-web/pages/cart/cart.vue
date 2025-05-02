@@ -405,13 +405,13 @@
 			line-height: 76upx;
 			font-size: $font-base + 2upx;
 			background: $uni-color-primary;
-			box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
+			box-shadow: 1px 2px 5px rgba(60, 126, 255, 0.4)
 		}
-	}
 
-	/* 复选框选中状态 */
-	.action-section .checkbox.checked,
-	.cart-item .checkbox.checked {
-		color: $uni-color-primary;
+		/* 复选框选中状态 */
+		.action-section .checkbox.checked,
+		.cart-item .checkbox.checked {
+			color: $uni-color-primary;
+		}
 	}
 </style>

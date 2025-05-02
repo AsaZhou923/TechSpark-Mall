@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 /**
  * 订单管理Service实现类
@@ -150,5 +152,33 @@ public class OmsOrderServiceImpl implements OmsOrderService {
         history.setNote("修改备注信息："+note);
         orderOperateHistoryMapper.insert(history);
         return count;
+    }
+
+    /**
+     * 获取订单总数
+     */
+    @Override
+    public long getOrderCount() {
+        OmsOrderExample example = new OmsOrderExample();
+        example.createCriteria().andDeleteStatusEqualTo(0);
+        return orderMapper.countByExample(example);
+    }
+    
+    /**
+     * 获取销售总额
+     */
+    @Override
+    public BigDecimal getSalesAmount() {
+        OmsOrderExample example = new OmsOrderExample();
+        // 只统计未删除的订单
+        example.createCriteria().andDeleteStatusEqualTo(0)
+                // 只统计已支付的订单（状态为1-已支付/待发货、2-已发货、3-已完成）
+                .andStatusIn(Arrays.asList(1, 2, 3));
+        List<OmsOrder> orderList = orderMapper.selectByExample(example);
+        // 计算所有订单的实付金额总和
+        BigDecimal totalAmount = orderList.stream()
+                .map(OmsOrder::getPayAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return totalAmount;
     }
 }

@@ -5,6 +5,7 @@ import com.xavi.mall.model.OmsOrder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * 订单管理Service
@@ -55,4 +56,14 @@ public interface OmsOrderService {
      */
     @Transactional
     int updateNote(Long id, String note, Integer status);
+    
+    /**
+     * 获取订单总数
+     */
+    long getOrderCount();
+    
+    /**
+     * 获取销售总额
+     */
+    BigDecimal getSalesAmount();
 }

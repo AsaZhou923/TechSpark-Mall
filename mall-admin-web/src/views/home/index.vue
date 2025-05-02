@@ -2,21 +2,21 @@
   <div class="app-container">
     <div class="total-layout">
       <el-row :gutter="20">
-        <el-col :span="6">
-          <div class="total-frame">
+        <el-col :span="10">
+          <div class="total-frame" style="text-align: center;">
             <img :src="img_home_order" class="total-icon">
-            <div class="total-title">今日订单总数</div>
-            <div class="total-value">3</div>
+            <div class="total-title">订单总数</div>
+            <div class="total-value">{{OrderCount}}</div>
           </div>
         </el-col>
-        <el-col :span="6">
-          <div class="total-frame">
+        <el-col :span="10">
+          <div class="total-frame"  style="text-align: center;">
             <img :src="img_home_today_amount" class="total-icon">
-            <div class="total-title">今日销售总额</div>
-            <div class="total-value">￥18752.00</div>
+            <div class="total-title">销售总额</div>
+            <div class="total-value">￥{{salesAmount}}</div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <!-- <el-col :span="6">
           <div class="total-frame">
             <img :src="img_home_yesterday_amount" class="total-icon">
             <div class="total-title">昨日销售总额</div>
@@ -30,7 +30,7 @@
             <div class="total-title">近7天销售总额</div>
             <div class="total-value">￥58867.00</div>
           </div>
-        </el-col>
+        </el-col> -->
       </el-row>
     </div>
     <div class="un-handle-layout">
@@ -134,60 +134,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="statistics-layout">
-      <div class="layout-title">订单统计</div>
-      <el-row>
-        <el-col :span="4">
-          <div style="padding: 20px">
-            <div>
-              <div style="color: #909399;font-size: 14px">本月订单总数</div>
-              <div style="color: #606266;font-size: 24px;padding: 10px 0">9</div>
-              
-            </div>
-            <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本周订单总数</div>
-              <div style="color: #606266;font-size: 24px;padding: 10px 0">12</div>
-              
-            </div>
-            <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本月销售总额</div>
-              <div style="color: #606266;font-size: 24px;padding: 10px 0">75821</div>
-              
-            </div>
-            <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本周销售总额</div>
-              <div style="color: #606266;font-size: 24px;padding: 10px 0">54578</div>
-              
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="20">
-          <div style="padding: 10px;border-left:1px solid #DCDFE6">
-            <el-date-picker
-              style="float: right;z-index: 1"
-              size="small"
-              v-model="orderCountDate"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              @change="handleDateChange"
-              :picker-options="pickerOptions">
-            </el-date-picker>
-            <div>
-              <ve-line
-                :data="chartData"
-                :legend-visible="false"
-                :loading="loading"
-                :data-empty="dataEmpty"
-                :settings="chartSettings"></ve-line>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
+    
   </div>
 </template>
 
@@ -196,6 +143,8 @@
   import img_home_order from '@/assets/images/home_order.png';
   import img_home_today_amount from '@/assets/images/home_today_amount.png';
   import img_home_yesterday_amount from '@/assets/images/home_yesterday_amount.png';
+  import {getOrderCount} from '@/api/order'; // 导入获取今日订单总数的API
+  import {fetchSalesAmount} from '@/api/order'; // 导入获取今日销售总额的API
   const DATA_FROM_BACKEND = {
     columns: ['date', 'orderCount','orderAmount'],
     rows: [
@@ -251,12 +200,16 @@
         dataEmpty: false,
         img_home_order,
         img_home_today_amount,
-        img_home_yesterday_amount
+        img_home_yesterday_amount,
+        OrderCount: 0, // 添加今日订单总数属性
+        salesAmount: 0
       }
     },
     created(){
       this.initOrderCountDate();
       this.getData();
+      this.getOrderCount(); // 获取今日订单总数
+      this.getSalesAmount();
     },
     methods:{
       handleDateChange(){
@@ -285,6 +238,16 @@
           this.dataEmpty = false;
           this.loading = false
         }, 1000)
+      },
+      getOrderCount() {
+        getOrderCount().then(response => {
+          this.OrderCount = response.data;
+        });
+      },
+      getSalesAmount() {
+        fetchSalesAmount().then(response => {
+          this.salesAmount = response.data;
+        });
       }
     }
   }

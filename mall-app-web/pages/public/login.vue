@@ -3,8 +3,14 @@
 		<view class="left-bottom-sign"></view>
 		<view class="back-btn yticon icon-zuojiantou-up" @click="navBack"></view>
 		<view class="right-top-sign"></view>
+		<view class="decoration-circle-1"></view>
+		<view class="decoration-circle-2"></view>
+		<view class="decoration-dots"></view>
 		<!-- 设置白色背景防止软键盘把下部绝对定位元素顶上来盖住输入框等 -->
 		<view class="wrapper">
+			<view class="logo-box">
+				<image class="logo-image" src="/static/icon_new_product.png" mode="aspectFit"></image>
+			</view>
 			<view class="left-top-sign">LOGIN</view>
 			<view class="welcome">
 				欢迎回来！
@@ -94,7 +100,7 @@
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
-		background: #fff;
+		background: linear-gradient(to bottom, #f8f8fc, #fff);
 	}
 
 	.wrapper {
@@ -102,6 +108,17 @@
 		z-index: 90;
 		background: #fff;
 		padding-bottom: 40upx;
+	}
+	
+	.logo-box {
+		display: flex;
+		justify-content: center;
+		padding-top: 20upx;
+	}
+	
+	.logo-image {
+		width: 200upx;
+		height: 200upx;
 	}
 
 	.back-btn {
@@ -133,12 +150,13 @@
 			content: "";
 			width: 400upx;
 			height: 80upx;
-			background: #b4f3e2;
+			background: rgba(60, 126, 255, 0.2);
 		}
 
 		&:before {
 			transform: rotate(50deg);
 			border-radius: 0 50px 0 0;
+			box-shadow: 0 0 10px rgba(60, 126, 255, 0.1);
 		}
 
 		&:after {
@@ -147,17 +165,53 @@
 			top: 0;
 			transform: rotate(-50deg);
 			border-radius: 50px 0 0 0;
-			/* background: pink; */
+			background: rgba(60, 126, 255, 0.15);
 		}
 	}
 
 	.left-bottom-sign {
 		position: absolute;
-		left: -270upx;
-		bottom: -320upx;
-		border: 100upx solid #d0d1fd;
+		left: 60upx;
+		bottom: -300upx;
+		border: 150upx solid rgba(60, 126, 255, 0.15);
+		border-radius: 60%;
+		padding: 150upx;
+		box-shadow: inset 0 0 30px rgba(60, 126, 255, 0.2);
+	}
+
+	// 添加新的装饰元素
+	.decoration-circle-1 {
+		position: absolute;
+		width: 200upx;
+		height: 200upx;
 		border-radius: 50%;
-		padding: 180upx;
+		background: rgba(60, 126, 255, 0.05);
+		top: 200upx;
+		right: 100upx;
+		z-index: 1;
+	}
+
+	.decoration-circle-2 {
+		position: absolute;
+		width: 120upx;
+		height: 120upx;
+		border-radius: 50%;
+		background: rgba(60, 126, 255, 0.08);
+		top: 300upx;
+		right: 60upx;
+		z-index: 1;
+	}
+
+	.decoration-dots {
+		position: absolute;
+		width: 200upx;
+		height: 100upx;
+		left: 40upx;
+		top: 40%;
+		z-index: 1;
+		opacity: 0.6;
+		background-image: radial-gradient(circle, rgba(60, 126, 255, 0.3) 2px, transparent 3px);
+		background-size: 20px 20px;
 	}
 
 	.welcome {
@@ -165,8 +219,10 @@
 		left: 50upx;
 		top: -90upx;
 		font-size: 46upx;
-		color: #555;
-		text-shadow: 1px 0px 1px rgba(0, 0, 0, .3);
+		color: #3c7eff;
+		text-shadow: 1px 1px 2px rgba(60, 126, 255, 0.2);
+		font-weight: bold;
+		z-index: 100;
 	}
 
 	.input-content {
@@ -181,8 +237,15 @@
 		padding: 0 30upx;
 		background: $page-color-light;
 		height: 120upx;
-		border-radius: 4px;
+		border-radius: 12px;
 		margin-bottom: 50upx;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+		transition: all 0.3s;
+
+		&:focus-within {
+			box-shadow: 0 2px 15px rgba(60, 126, 255, 0.1);
+			transform: translateY(-2px);
+		}
 
 		&:last-child {
 			margin-bottom: 0;

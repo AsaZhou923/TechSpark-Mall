@@ -19,14 +19,7 @@
 							"disabled": false,
 							"placeholderColor": "#606266"
 						},
-						"buttons": [{
-								"fontSrc": "/static/yticon.ttf",
-								"text": "\ue60d",
-								"fontSize": "26",
-								"color": "#303133",
-								"float": "left",
-								"background": "rgba(0,0,0,0)"
-							},
+						"buttons": [
 							{
 								"fontSrc": "/static/yticon.ttf",
 								"text": "\ue744",
@@ -270,7 +263,7 @@
 	},
 	"tabBar": {
 		"color": "#C0C4CC",
-		"selectedColor": "#fa436a",
+		"selectedColor": "#3c7eff",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

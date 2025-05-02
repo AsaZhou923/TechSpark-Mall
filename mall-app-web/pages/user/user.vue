@@ -76,7 +76,6 @@
 				<list-cell icon="icon-lishijilu" iconColor="#e07472" title="我的足迹" @eventClick="navTo('/pages/user/readHistory')"></list-cell>
 				<list-cell icon="icon-shoucang" iconColor="#5fcda2" title="我的关注" @eventClick="navTo('/pages/user/brandAttention')"></list-cell>
 				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/user/productCollection')"></list-cell>
-				<list-cell icon="icon-pingjia" iconColor="#ee883b" title="我的评价"></list-cell>
 				<list-cell icon="icon-shezhi1" iconColor="#e07472" title="设置" border="" @eventClick="navTo('/pages/set/set')"></list-cell>
 			</view>
 		</view>
@@ -373,5 +372,27 @@
 			}
 		}
 	}
-	
+	.list-cell {
+	    display: flex;
+	    align-items: center;
+	    padding: 20upx 30upx;
+	    line-height: 60upx;
+	    position: relative;
+	    background: #fff;
+	    justify-content: space-between;
+	    border-radius: 10upx;
+	    margin: 10upx 20upx;
+	    box-shadow: 0 1upx 5upx rgba(0,0,0,0.05);
+	    
+	    &.log-out-btn{
+	        margin-top: 40upx;
+	        color: $uni-color-primary;
+	        text-align: center;
+	        justify-content: center;
+	    }
+	    
+	    &.cell-hover{
+	        background: #f8f8fc;
+	    }
+	}
 </style>

@@ -1263,9 +1263,9 @@
 			height: 76upx;
 			border-radius: 100px;
 			overflow: hidden;
-			box-shadow: 0 20upx 40upx -16upx #fa436a;
-			box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
-			background: linear-gradient(to right, #ffac30, #fa436a, #F56C6C);
+			box-shadow: 0 20upx 40upx -16upx #3c7eff;
+			box-shadow: 1px 2px 5px rgba(60, 126, 255, 0.4);
+			background: linear-gradient(to right, #42a5f5, #3c7eff, #4e6ef2);
 			margin-left: 20upx;
 			position: relative;
 

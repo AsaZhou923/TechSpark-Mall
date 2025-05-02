@@ -405,28 +405,11 @@
 			.promotion {
 				font-size: 24upx;
 				color: $base-color;
-			}
 
-			.price-box {
-				display: flex;
-				align-items: center;
-				font-size: 32upx;
-				color: $font-color-dark;
-				padding-top: 10upx;
-
-				.price {
-					margin-bottom: 4upx;
+				&:before {
+					content: '￥';
+					font-size: 34upx;
 				}
-
-				.number {
-					font-size: 26upx;
-					color: $font-color-base;
-					margin-left: 20upx;
-				}
-			}
-
-			.step-box {
-				position: relative;
 			}
 		}
 	}
@@ -756,19 +739,13 @@
 		line-height: 60upx;
 		font-size: $font-sm + 2upx;
 		color: $font-color-dark;
-		background: #fff;
-		border-radius: 100px;
-
-		&:after {
-			border-radius: 100px;
-		}
 
 		&.recom {
-			background: #fff9f9;
+			background: #f0f5ff;
 			color: $base-color;
 
 			&:after {
-				border-color: #f7bcc8;
+				border-color: #c3d4ff;
 			}
 		}
 	}

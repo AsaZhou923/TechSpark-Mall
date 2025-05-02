@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * 订单管理Controller
@@ -111,5 +112,21 @@ public class OmsOrderController {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
+    }
+
+    @ApiOperation("获取订单总数")
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Long> getOrderCount() {
+        long count = orderService.getOrderCount();
+        return CommonResult.success(count);
+    }
+    
+    @ApiOperation("获取销售总额")
+    @RequestMapping(value = "/salesAmount", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<BigDecimal> getSalesAmount() {
+        BigDecimal salesAmount = orderService.getSalesAmount();
+        return CommonResult.success(salesAmount);
     }
 }
