@@ -1,0 +1,372 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/esProduct/search" : {
+      "get" : {
+        "summary" : "综合搜索、筛选、排序",
+        "description" : "综合搜索、筛选、排序",
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        }, {
+          "name" : "brandId",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "nullable" : false
+          }
+        }, {
+          "name" : "productCategoryId",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "nullable" : false
+          }
+        }, {
+          "name" : "pageNum",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "nullable" : false,
+            "default" : "0"
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "nullable" : false,
+            "default" : "5"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "排序字段:0->按相关度；1->按新品；2->按销量；3->价格从低到高；4->价格从高到低n0,1,2,3,4",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : "状态码",
+                      "format" : "int64"
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : "提示信息"
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "pageNum" : {
+                          "type" : "integer",
+                          "description" : "当前页码"
+                        },
+                        "pageSize" : {
+                          "type" : "integer",
+                          "description" : "每页数量"
+                        },
+                        "totalPage" : {
+                          "type" : "integer",
+                          "description" : "总页数"
+                        },
+                        "total" : {
+                          "type" : "integer",
+                          "description" : "总条数",
+                          "format" : "int64"
+                        },
+                        "list" : {
+                          "type" : "array",
+                          "description" : "分页数据",
+                          "items" : {
+                            "type" : "object",
+                            "properties" : {
+                              "id" : {
+                                "type" : "integer",
+                                "description" : "",
+                                "format" : "int64"
+                              },
+                              "productSn" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "brandId" : {
+                                "type" : "integer",
+                                "description" : "",
+                                "format" : "int64"
+                              },
+                              "brandName" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "productCategoryId" : {
+                                "type" : "integer",
+                                "description" : "",
+                                "format" : "int64"
+                              },
+                              "productCategoryName" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "pic" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "name" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "subTitle" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "keywords" : {
+                                "type" : "string",
+                                "description" : ""
+                              },
+                              "price" : {
+                                "type" : "number",
+                                "description" : ""
+                              },
+                              "sale" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "newStatus" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "recommandStatus" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "stock" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "promotionType" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "sort" : {
+                                "type" : "integer",
+                                "description" : ""
+                              },
+                              "attrValueList" : {
+                                "type" : "array",
+                                "description" : "",
+                                "items" : {
+                                  "type" : "object",
+                                  "properties" : {
+                                    "id" : {
+                                      "type" : "integer",
+                                      "description" : "",
+                                      "format" : "int64"
+                                    },
+                                    "productAttributeId" : {
+                                      "type" : "integer",
+                                      "description" : "",
+                                      "format" : "int64"
+                                    },
+                                    "value" : {
+                                      "type" : "string",
+                                      "description" : "属性值"
+                                    },
+                                    "type" : {
+                                      "type" : "integer",
+                                      "description" : "属性参数：0->规格；1->参数"
+                                    },
+                                    "name" : {
+                                      "type" : "string",
+                                      "description" : "属性名称"
+                                    }
+                                  },
+                                  "description" : "搜索商品的属性信息\nCreated by xavier"
+                                }
+                              }
+                            },
+                            "description" : "搜索商品的信息\nCreated by xavier"
+                          }
+                        }
+                      },
+                      "description" : "数据封装"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "搜索商品的属性信息\nCreated by xavier" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "productAttributeId" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "属性值"
+          },
+          "type" : {
+            "type" : "integer",
+            "description" : "属性参数：0->规格；1->参数"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "属性名称"
+          }
+        },
+        "description" : "搜索商品的属性信息\nCreated by xavier"
+      },
+      "搜索商品的信息\nCreated by xavier" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "productSn" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "brandId" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "brandName" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "productCategoryId" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "productCategoryName" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "pic" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "name" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "subTitle" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "keywords" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "price" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "sale" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "newStatus" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "recommandStatus" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "stock" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "promotionType" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "sort" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "attrValueList" : {
+            "type" : "array",
+            "description" : "",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "integer",
+                  "description" : "",
+                  "format" : "int64"
+                },
+                "productAttributeId" : {
+                  "type" : "integer",
+                  "description" : "",
+                  "format" : "int64"
+                },
+                "value" : {
+                  "type" : "string",
+                  "description" : "属性值"
+                },
+                "type" : {
+                  "type" : "integer",
+                  "description" : "属性参数：0->规格；1->参数"
+                },
+                "name" : {
+                  "type" : "string",
+                  "description" : "属性名称"
+                }
+              },
+              "description" : "搜索商品的属性信息\nCreated by xavier"
+            }
+          }
+        },
+        "description" : "搜索商品的信息\nCreated by xavier"
+      }
+    }
+  }
+}

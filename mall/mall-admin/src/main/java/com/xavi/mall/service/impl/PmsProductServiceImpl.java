@@ -91,8 +91,7 @@ public class PmsProductServiceImpl implements PmsProductService {
         relateAndInsertList(productAttributeValueDao, productParam.getProductAttributeValueList(), productId);
         //关联专题
         relateAndInsertList(subjectProductRelationDao, productParam.getSubjectProductRelationList(), productId);
-        //关联优选
-        relateAndInsertList(prefrenceAreaProductRelationDao, productParam.getPrefrenceAreaProductRelationList(), productId);
+
         count = 1;
         return count;
     }
@@ -154,11 +153,7 @@ public class PmsProductServiceImpl implements PmsProductService {
         subjectProductRelationExample.createCriteria().andProductIdEqualTo(id);
         subjectProductRelationMapper.deleteByExample(subjectProductRelationExample);
         relateAndInsertList(subjectProductRelationDao, productParam.getSubjectProductRelationList(), id);
-        //关联优选
-        CmsPrefrenceAreaProductRelationExample prefrenceAreaExample = new CmsPrefrenceAreaProductRelationExample();
-        prefrenceAreaExample.createCriteria().andProductIdEqualTo(id);
-        prefrenceAreaProductRelationMapper.deleteByExample(prefrenceAreaExample);
-        relateAndInsertList(prefrenceAreaProductRelationDao, productParam.getPrefrenceAreaProductRelationList(), id);
+
         count = 1;
         return count;
     }

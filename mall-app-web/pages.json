@@ -4,10 +4,10 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				// #ifdef MP 
+				
 				"navigationBarTitleText": "TechSpark Mall商城",
-				//"navigationStyle": "custom",
-				// #endif 
+				"navigationStyle": "custom",
+				
 				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
@@ -27,7 +27,18 @@
 								"color": "#303133",
 								"background": "rgba(0,0,0,0)",
 								"redDot": true
-							}
+							},
+							{
+                "fontSrc": "/static/yticon.ttf",
+                "text": "搜索",
+                "fontSize": "20",
+                "color": "#3c7eff", 
+                "background": "rgba(60, 126, 255, 0.1)", 
+                "width": "80px", 
+                "position": "right",
+                "float": "right",
+                "title": "搜索" 
+              }
 						]
 					}
 				}
@@ -252,6 +263,12 @@
 						}]
 					}
 				}
+			}
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "商品搜索",
+				"enablePullDownRefresh": true
 			}
 		}
 	],

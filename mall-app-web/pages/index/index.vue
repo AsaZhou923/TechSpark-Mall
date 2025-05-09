@@ -3,10 +3,13 @@
 		<!-- 小程序头部兼容 -->
 		<!-- #ifdef MP -->
 		<view class="mp-search-box">
-			<input class="ser-input" type="text" value="输入关键字搜索" @confirm="searchProducts" confirm-type="search" @tap="navToSearchPage"/>
+			<view class="ser-input" @tap="navToSearchPage">
+				<text class="search-placeholder">搜索</text>
+				<text class="yticon icon-sousuo"></text>
+			</view>
 		</view>
 		<!-- #endif -->
-
+		
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
 			<!-- 标题栏和状态栏占位符 -->
@@ -34,7 +37,7 @@
 			</view>
 		</view>
 
-				<!-- 新鲜好物 -->
+		<!-- 新鲜好物 -->
 		<view class="f-header m-t" @click="navToNewProudctListPage()">
 			<image src="/static/icon_new_product.png"></image>
 			<view class="tit-box">
@@ -76,6 +79,27 @@
 			</view>
 		</view>
 
+		<!-- 猜你喜欢-->
+		<view class="f-header m-t">
+			<image src="/static/icon_recommend_product.png"></image>
+			<view class="tit-box">
+				<text class="tit">猜你喜欢</text>
+				<text class="tit2">你喜欢的电子产品都在这里</text>
+			</view>
+			<text class="yticon icon-you" v-show="false"></text>
+		</view>
+
+		<view class="guess-section">
+			<view v-for="(item, index) in recommendProductList" :key="index" class="guess-item" @click="navToDetailPage(item)">
+				<view class="image-wrapper">
+					<image :src="item.pic" mode="aspectFill"></image>
+				</view>
+				<text class="title clamp">{{item.name}}</text>
+				<text class="title2 clamp">{{item.subTitle}}</text>
+				<text class="price">￥{{item.price}}</text>
+			</view>
+		</view>
+
 		<!-- 秒杀专区 -->
 		<view class="f-header m-t" v-if="homeFlashPromotion!==null">
 			<image src="/static/icon_flash_promotion.png"></image>
@@ -107,9 +131,6 @@
 			</view>
 		</view>
 
-
-
-
 		<view class="hot-section">
 			<view v-for="(item, index) in hotProductList" :key="index" class="guess-item" @click="navToDetailPage(item)">
 				<view class="image-wrapper">
@@ -123,26 +144,6 @@
 			</view>
 		</view>
 
-		<!-- 猜你喜欢-->
-		<view class="f-header m-t">
-			<image src="/static/icon_recommend_product.png"></image>
-			<view class="tit-box">
-				<text class="tit">猜你喜欢</text>
-				<text class="tit2">你喜欢的电子产品都在这里</text>
-			</view>
-			<text class="yticon icon-you" v-show="false"></text>
-		</view>
-
-		<view class="guess-section">
-			<view v-for="(item, index) in recommendProductList" :key="index" class="guess-item" @click="navToDetailPage(item)">
-				<view class="image-wrapper">
-					<image :src="item.pic" mode="aspectFill"></image>
-				</view>
-				<text class="title clamp">{{item.name}}</text>
-				<text class="title2 clamp">{{item.subTitle}}</text>
-				<text class="price">￥{{item.price}}</text>
-			</view>
-		</view>
 		<uni-load-more :status="loadingType"></uni-load-more>
 	</view>
 </template>
@@ -178,7 +179,8 @@
 					pageNum: 1,
 					pageSize: 4
 				},
-				loadingType:'more'
+				loadingType:'more',
+				searchKeyword: '' // 添加搜索关键词变量
 			};
 		},
 		onLoad() {
@@ -303,72 +305,79 @@
 			 * 跳转到搜索页面
 			 */
 			navToSearchPage() {
-			  uni.navigateTo({
-			    url: '/pages/search/search'
-			  });
+				uni.navigateTo({
+					url: '/pages/search/search'
+				});
 			},
 			
 			/**
 			 * 搜索商品
 			 */
 			searchProducts(e) {
-			  let keyword = e.detail.value;
-			  if(!keyword) {
-			    this.$api.msg('请输入搜索关键词');
-			    return;
-			  }
-			  uni.navigateTo({
-			    url: `/pages/search/search?keyword=${keyword}`
-			  });
+				let keyword = this.searchKeyword || (e && e.detail && e.detail.value);
+				if(!keyword) {
+					uni.showToast({
+						title: '请输入搜索关键词',
+						icon: 'none'
+					});
+					return;
+				}
+				
+				uni.navigateTo({
+					url: `/pages/search/search?keyword=${keyword}`
+				});
 			},
-			//广告详情页
-			navToAdvertisePage(item) {
-				let id = item.id;
-				console.log("navToAdvertisePage",item)
+			
+			// 添加搜索方法
+			handleSearch(e) {
+    	console.log('搜索事件触发', e);
+    	let keyword = e.detail.value;
+    	if(keyword) {
+        uni.navigateTo({
+            url: `/pages/search/search?keyword=${encodeURIComponent(keyword)}`
+        	});
+    		}
 			},
+			// 监听原生标题栏搜索输入
+			onNavigationBarSearchInputConfirmed(e) {
+				this.handleSearch(e);
+			},
+			// 监听原生标题栏搜索输入框点击事件
+			onNavigationBarSearchInputClicked() {
+				uni.navigateTo({
+					url: '/pages/search/search'
+				});
+			}
 		},
+		
 		// #ifndef MP
-		// 标题栏input搜索框点击
-		onNavigationBarSearchInputClicked: async function(e) {
-			uni.navigateTo({
-				url: '/pages/search/search'
-			})
-		},
 		//点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {
-			const index = e.index;
-			if (index === 0) {
-				// #ifdef APP-PLUS
-				const pages = getCurrentPages();
-				const page = pages[pages.length - 1];
-				const currentWebview = page.$getAppWebview();
-				currentWebview.hideTitleNViewButtonRedDot({
-					index
-				});
-				// #endif
-				uni.navigateTo({
-					url: '/pages/notice/notice'
-				})
-			}
+		  const index = e.index;
+		  if (index === 0) {
+		    // #ifdef APP-PLUS
+		    const pages = getCurrentPages();
+		    const page = pages[pages.length - 1];
+		    const currentWebview = page.$getAppWebview();
+		    currentWebview.hideTitleNViewButtonRedDot({
+		      index
+		    });
+		    // #endif
+		    uni.navigateTo({
+		      url: '/pages/notice/notice'
+		    })
+		  } else if (index === 1) {
+		    // 搜索按钮点击
+		    this.navToSearchPage();
+		  }
 		},
 		// #endif
 		
-		// 搜索商品
-		searchProducts(e) {
-			let keyword = e.detail.value;
-			if(!keyword) {
-				this.$api.msg('请输入搜索关键词');
-				return;
-			}
-			uni.navigateTo({
-				url: `/pages/search/search?keyword=${keyword}`
-			})
-		}
+		
 	}
 </script>
 
 <style lang="scss">
-	/* #ifdef MP */
 	.mp-search-box {
 		position: absolute;
 		left: 0;
@@ -378,16 +387,33 @@
 		padding: 0 80upx;
 
 		.ser-input {
-			flex: 1;
-			height: 56upx;
-			line-height: 56upx;
-			text-align: center;
-			font-size: 28upx;
-			color: $font-color-base;
-			border-radius: 20px;
-			background: rgba(255, 255, 255, .7);  /* 增加透明度 */
+		flex: 1;
+		height: 70upx;
+		line-height: 70upx;
+		text-align: center;
+		font-size: 30upx;
+		color: #333;
+		border-radius: 35upx;
+		background: rgba(60, 126, 255, 0.1); /* 使用主题蓝色的浅色背景 */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4upx 12upx rgba(60, 126, 255, 0.2); /* 增强阴影效果 */
+		border: 1px solid rgba(60, 126, 255, 0.3); /* 使用主题蓝色的边框 */
+		
+		.search-placeholder {
+		color: #3c7eff; /* 使用主题蓝色 */
+		font-weight: bold; /* 加粗字体 */
 		}
-	}
+		
+		.yticon {
+		margin-right: 10upx;
+		font-size: 32upx;
+		color: #3c7eff; /* 使用主题蓝色 */
+		}
+		}
+		}
+		
 
 	page {
 		.cate-section {

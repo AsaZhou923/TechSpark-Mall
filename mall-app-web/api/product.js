@@ -21,15 +21,3 @@ export function fetchProductDetail(id) {
 		url: '/product/detail/'+id
 	})
 }
-
-/**
- * 综合搜索商品
- * @param {Object} params 搜索参数
- */
-export function searchProducts(params) {
-	return request({
-		url: '/search',
-		method: 'get',
-		params: params
-	});
-}
