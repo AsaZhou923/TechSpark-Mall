@@ -30,7 +30,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * 会员管理Service实现类
@@ -109,7 +109,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     @Override
     public String generateAuthCode(String telephone) {
         StringBuilder sb = new StringBuilder();
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         for(int i=0;i<6;i++){
             sb.append(random.nextInt(10));
         }

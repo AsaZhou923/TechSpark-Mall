@@ -17,10 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +70,7 @@ public class PmsProductServiceImpl implements PmsProductService {
     @Autowired
     private PmsProductVertifyRecordDao productVertifyRecordDao;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int create(PmsProductParam productParam) {
         int count;
@@ -96,15 +99,16 @@ public class PmsProductServiceImpl implements PmsProductService {
         return count;
     }
 
+    private static final DateTimeFormatter SKU_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
+
     private void handleSkuStockCode(List<PmsSkuStock> skuStockList, Long productId) {
         if(CollectionUtils.isEmpty(skuStockList))return;
         for(int i=0;i<skuStockList.size();i++){
             PmsSkuStock skuStock = skuStockList.get(i);
             if(StrUtil.isEmpty(skuStock.getSkuCode())){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 StringBuilder sb = new StringBuilder();
                 //日期
-                sb.append(sdf.format(new Date()));
+                sb.append(LocalDate.now().format(SKU_DATE_FORMATTER));
                 //四位商品id
                 sb.append(String.format("%04d", productId));
                 //三位索引id
@@ -119,6 +123,7 @@ public class PmsProductServiceImpl implements PmsProductService {
         return productDao.getUpdateInfo(id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int update(Long id, PmsProductParam productParam) {
         int count;
