@@ -15,7 +15,7 @@ export function fetchCartList() {
 	})
 }
 
-export function deletCartItem(params) {
+export function deleteCartItem(params) {
 	return request({
 		method: 'POST',
 		url: '/cart/delete',

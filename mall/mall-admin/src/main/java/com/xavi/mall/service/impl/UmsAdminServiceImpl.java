@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -77,6 +78,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         return null;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public UmsAdmin register(UmsAdminParam umsAdminParam) {
         UmsAdmin umsAdmin = new UmsAdmin();
@@ -87,8 +89,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
         List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
-        if (umsAdminList.size() > 0) {
-            return null;
+        if (!umsAdminList.isEmpty()) {
+            Asserts.fail("该用户名已被使用");
         }
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
@@ -99,8 +101,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         umsAdminRoleRelation.setAdminId(umsAdmin.getId());
         umsAdminRoleRelation.setRoleId(1L);
         adminRoleRelationMapper.insert(umsAdminRoleRelation);
-        //getCacheService().delResourceListByRole(1L);
-
         return umsAdmin;
     }
 
@@ -204,6 +204,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         return count;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateRole(Long adminId, List<Long> roleIds) {
         int count = roleIds == null ? 0 : roleIds.size();

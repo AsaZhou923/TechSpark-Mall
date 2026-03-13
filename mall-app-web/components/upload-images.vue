@@ -67,7 +67,7 @@ export default {
 			try{
 				const uploadUrl = await this.uploadImage(images[0]);
 			}catch(err){
-				console.log(err);
+				uni.showToast({ title: '图片上传失败，请重试', icon: 'none', duration: 1500 });
 				return;
 			}
 			
