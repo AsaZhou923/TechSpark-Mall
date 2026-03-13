@@ -56,7 +56,7 @@
 	import uniNumberBox from '@/components/uni-number-box.vue';
 	import {
 		fetchCartList,
-		deletCartItem,
+		deleteCartItem,
 		updateQuantity,
 		clearCartList
 	} from '@/api/cart.js';
@@ -157,7 +157,7 @@
 				let list = this.cartList;
 				let row = list[index];
 				let id = row.id;
-				deletCartItem({ids:id}).then(response=>{
+				deleteCartItem({ids:id}).then(response=>{
 					this.cartList.splice(index, 1);
 					this.calcTotal();
 					uni.hideLoading();

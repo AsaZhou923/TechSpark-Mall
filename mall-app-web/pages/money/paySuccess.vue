@@ -28,7 +28,6 @@
 				return;
 			}
 			let outTradeNo = options.out_trade_no;
-			console.log(options.out_trade_no);
 			fetchAliapyStatus({outTradeNo:outTradeNo}).then(response => {
 				this.tradeStatus = response.data;
 				if(this.tradeStatus!=null&&'TRADE_SUCCESS'==this.tradeStatus){
@@ -36,7 +35,6 @@
 				}else{
 					this.payText = '支付失败';
 				}
-				console.log(this.tradeStatus);
 			});
 		},
 		methods: {

@@ -152,7 +152,6 @@
 		onLoad(option) {
 			//商品数据
 			this.cartIds = JSON.parse(option.cartIds);
-			console.log(this.cartIds);
 			this.loadData();
 		},
 		filters: {
@@ -240,7 +239,6 @@
 									url: `/pages/money/pay?orderId=${orderId}`
 								})
 							} else if (res.cancel) {
-								console.log("cancel")
 								uni.redirectTo({
 									url: '/pages/order/order?state=0'
 								})

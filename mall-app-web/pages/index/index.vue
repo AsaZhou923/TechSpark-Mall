@@ -243,7 +243,6 @@
 			 */
 			async loadData() {
 				fetchContent().then(response => {
-					console.log("onLoad", response.data);
 					this.advertiseList = response.data.advertiseList;
 					this.swiperLength = this.advertiseList.length;
 					this.titleNViewBackground = this.titleNViewBackgroundList[0];
@@ -274,7 +273,6 @@
 			//广告详情页
 			navToAdvertisePage(item) {
 				let id = item.id;
-				console.log("navToAdvertisePage",item)
 			},
 			//品牌详情页
 			navToBrandDetailPage(item) {
@@ -330,7 +328,6 @@
 			
 			// 添加搜索方法
 			handleSearch(e) {
-    	console.log('搜索事件触发', e);
     	let keyword = e.detail.value;
     	if(keyword) {
         uni.navigateTo({

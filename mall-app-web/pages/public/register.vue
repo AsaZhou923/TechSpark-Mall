@@ -228,7 +228,6 @@
 							provider: value,
 							success: (infoRes) => {
 								// 实际开发中，这里应该调用服务端接口，将数据发送到服务端进行第三方登录
-								console.log('用户信息：' + JSON.stringify(infoRes.userInfo));
 								uni.showToast({
 									title: '登录成功'
 								});
@@ -240,7 +239,6 @@
 						});
 					},
 					fail: (err) => {
-						console.error('授权登录失败：' + JSON.stringify(err));
 					}
 				});
 			}

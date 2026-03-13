@@ -104,7 +104,7 @@
 					// 保存到本地存储
 					uni.setStorageSync('searchHistory', history);
 				} catch (e) {
-					console.error('保存搜索历史失败', e);
+					// 保存搜索历史失败时静默忽略
 				}
 			},
 			
@@ -122,7 +122,6 @@
 				};
 				
 				searchProducts(params).then(response => {
-					console.log('搜索结果:', response);
 					const { data } = response;
 					if (data && data.list) {
 						if (data.list.length > 0) {
@@ -137,7 +136,6 @@
 					}
 					this.loading = false;
 				}).catch((error) => {
-					console.error('搜索失败:', error);
 					this.loading = false;
 					this.loadingType = 'more';
 					uni.showToast({

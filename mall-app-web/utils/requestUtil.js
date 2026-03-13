@@ -50,6 +50,7 @@ http.interceptor.response((response) => { /* 请求之后拦截器 */
 		})
 		//401未登录处理
 		if (res.code === 401) {
+			uni.removeStorageSync('token');
 			uni.showModal({
 				title: '提示',
 				content: '你已被登出，可以取消继续留在该页面，或者重新登录',
@@ -60,8 +61,6 @@ http.interceptor.response((response) => { /* 请求之后拦截器 */
 						uni.navigateTo({
 							url: '/pages/public/login'
 						})
-					} else if (res.cancel) {
-						console.log('用户点击取消');
 					}
 				}
 			});
@@ -71,11 +70,10 @@ http.interceptor.response((response) => { /* 请求之后拦截器 */
 		return response.data;
 	}
 }, (response) => {
-	//提示错误信息
-	console.log('response error', response);
+	//提示网络错误信息
 	uni.showToast({
-		title:response.errMsg,
-		duration:1500
+		title: '网络请求失败，请检查网络连接',
+		duration: 1500
 	})
 	return Promise.reject(response);
 })

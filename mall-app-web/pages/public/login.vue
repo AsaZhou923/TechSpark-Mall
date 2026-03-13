@@ -56,7 +56,6 @@
 		},
 		onLoad() {
 			this.username = uni.getStorageSync('username') || '';
-			this.password = uni.getStorageSync('password') || '';
 		},
 		methods: {
 			...mapMutations(['login']),
@@ -67,18 +66,27 @@
 				uni.navigateTo({url:'/pages/public/register'});
 			},
 			async toLogin() {
+				if (!this.username.trim()) {
+					uni.showToast({ title: '请输入用户名', icon: 'none' });
+					return;
+				}
+				if (!this.password) {
+					uni.showToast({ title: '请输入密码', icon: 'none' });
+					return;
+				}
 				this.logining = true;
 				memberLogin({
 					username: this.username,
 					password: this.password
 				}).then(response => {
-					let token = response.data.tokenHead+response.data.token;
-					uni.setStorageSync('token',token);
-					uni.setStorageSync('username',this.username);
-					uni.setStorageSync('password',this.password);
-					memberInfo().then(response=>{
+					let token = response.data.tokenHead + response.data.token;
+					uni.setStorageSync('token', token);
+					uni.setStorageSync('username', this.username);
+					memberInfo().then(response => {
 						this.login(response.data);
 						uni.navigateBack();
+					}).catch(() => {
+						this.logining = false;
 					});
 				}).catch(() => {
 					this.logining = false;
